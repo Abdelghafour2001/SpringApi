@@ -3,6 +3,8 @@ package com.example.service;
 import com.example.dto.AnimeDTO;
 import com.example.model.Anime;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,8 @@ import java.util.List;
 
 @Service
 public class AnimeServiceImpl implements AnimeService{
-
+    @Autowired
+    private MongoTemplate mongoTemplate;
     @Override
     public List<Anime> list() {
         RestTemplate restTemplate = new RestTemplate();
@@ -38,7 +41,7 @@ public class AnimeServiceImpl implements AnimeService{
             for (AnimeDTO dataObject : dataObjects) {
                 Anime person = new Anime();
                 person.setAnimeId(dataObject.getAnimeId());
-                person.setAnimeTitle(dataObject.getAnimeId());
+                mongoTemplate.insert(person);
                 persons.add(person);
             }
         } catch (IOException e) {
