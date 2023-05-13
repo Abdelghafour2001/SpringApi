@@ -3,7 +3,6 @@ package com.example.controllers;
 import com.example.model.Document;
 import com.example.service.AnimeService;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.jsoup.Jsoup;
@@ -22,12 +21,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping({"/anime"})
-public class Controller {
+public class AnimeController {
   @Autowired
   AnimeService service;
   private RestTemplate restTemplate;
 
-  public Controller() {
+  public AnimeController() {
     restTemplate = new RestTemplate();
   }
 
@@ -54,6 +53,7 @@ public class Controller {
   public ResponseEntity<Object> search(@RequestParam("keyw") String keyword,
                                        @RequestParam("page") int page) {
     try {
+
       String apiUrl = "http://localhost:3000/search?keyw=" + keyword + "&page=" + page;
 
       Object response = restTemplate.getForObject(apiUrl, Object.class);
@@ -64,7 +64,20 @@ public class Controller {
               .body("Internal Error: " + e.getMessage());
     }
   }
+  //http://localhost:8080/anime/watch-episode?id=spy-x-family-episode-1
+  @GetMapping("/watch-episode")
+  public ResponseEntity<Object> watchEpisode(@RequestParam("id") String id) {
+    try {
+      String apiUrl = "http://localhost:3000/getEpisode/" + id;
 
+      Object response = restTemplate.getForObject(apiUrl, Object.class);
+
+      return ResponseEntity.ok(response);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("Internal Error: " + e.getMessage());
+    }
+  }
   // localhost:8080/anime/genre/Action?page=1
   @GetMapping("/genre/{genre}")
   public ResponseEntity<?> getGenrePage(@PathVariable("genre") String genre, @RequestParam int page) {
@@ -98,8 +111,6 @@ public class Controller {
 
   @GetMapping("/anime-list-page")
   public ResponseEntity<Object> getAnimeList(@RequestParam(name = "page", required = false) String page) {
-
-
     try {
       String url = "http://localhost:3000/anime-list-page?page=" + page;
       HttpHeaders headers = new HttpHeaders();
@@ -124,7 +135,6 @@ public class Controller {
       List<Map<String, Object>> documents = (List<Map<String, Object>>) response.getBody();
       ObjectMapper objectMapper = new ObjectMapper();
       ObjectNode node = objectMapper.createObjectNode();
-
       for (Map<String, Object> document : documents) {
         String liTitle = (String) document.get("liTitle");
         Document doc = new Document();
