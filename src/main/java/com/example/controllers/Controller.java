@@ -2,7 +2,7 @@ package com.example.controllers;
 
 import com.example.model.Document;
 import com.example.service.AnimeService;
-import com.example.model.Anime;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -14,12 +14,11 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 @RestController
 @RequestMapping({"/anime"})
@@ -124,7 +123,7 @@ public class Controller {
       ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
       List<Map<String, Object>> documents = (List<Map<String, Object>>) response.getBody();
       ObjectMapper objectMapper = new ObjectMapper();
-      JsonNode node = objectMapper.createObjectNode();
+      ObjectNode node = objectMapper.createObjectNode();
 
       for (Map<String, Object> document : documents) {
         String liTitle = (String) document.get("liTitle");
@@ -135,7 +134,7 @@ public class Controller {
         doc.setReleased(extractReleased(liTitle));
         doc.setStatus(extractStatus(liTitle));
         doc.setPlotSummary(extractPlotSummary(liTitle));
-        ((ObjectNode) node).set(doc.getTitle(), objectMapper.valueToTree(doc));
+        node.set(doc.getTitle(), objectMapper.valueToTree(doc));
       }
       return ResponseEntity.ok(node);
 
@@ -147,8 +146,7 @@ public class Controller {
   private static String extractTitle(String liTitle) {
     org.jsoup.nodes.Document doc = Jsoup.parse(liTitle);
     Element titleElement = doc.selectFirst("a.bigChar");
-    String title = titleElement.text();
-    return title;
+    return titleElement.text();
   }
   public static List<String> extractGenres(String html) {
     org.jsoup.nodes.Document doc = Jsoup.parse(html);
