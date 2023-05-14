@@ -187,4 +187,15 @@ public class MoviesController {
                     .body("Internal Error: " + e.getMessage());
         }
     }
+    @GetMapping("/search/{query}")
+    public ResponseEntity<Object> search(@PathVariable("query") String query,@RequestParam(name = "page",required = false) String page){
+        try {
+            String apiUrl = "http://localhost:3030/api/search/" + query+"?page="+page;
+            Object response = restTemplate.getForObject(apiUrl, Object.class);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Internal Error: " + e.getMessage());
+        }
+    }
 }
