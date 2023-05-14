@@ -64,12 +64,12 @@ public class AnimeController {
               .body("Internal Error: " + e.getMessage());
     }
   }
-  //http://localhost:8080/anime/watch-episode?id=spy-x-family-episode-1
-  @GetMapping("/watch-episode")
-  public ResponseEntity<Object> watchEpisode(@RequestParam("id") String id) {
+  //http://localhost:3000/getEpisode/shingeki-no-kyojin-episode-5
+  //http://localhost:8080/anime/watch-episode/spy-x-family-episode-1
+  @GetMapping("/watch-episode/{id}")
+  public ResponseEntity<Object> watchEpisode(@PathVariable("id") String id) {
     try {
       String apiUrl = "http://localhost:3000/getEpisode/" + id;
-
       Object response = restTemplate.getForObject(apiUrl, Object.class);
 
       return ResponseEntity.ok(response);
@@ -83,6 +83,19 @@ public class AnimeController {
   public ResponseEntity<?> getGenrePage(@PathVariable("genre") String genre, @RequestParam int page) {
     try {
       String url = "http://localhost:3000/genre/" + genre + "?page=" + page;
+      RestTemplate restTemplate = new RestTemplate();
+      Object response = restTemplate.getForObject(url, Object.class);
+      return ResponseEntity.ok(response);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("Internal Error: " + e.getMessage());
+    }
+  }
+
+  @GetMapping("/season/{season}")
+  public ResponseEntity<?> getSeasonPage(@PathVariable("season") String season, @RequestParam int page) {
+    try {
+      String url = "http://localhost:3000/season/" + season + "?page=" + page;
       RestTemplate restTemplate = new RestTemplate();
       Object response = restTemplate.getForObject(url, Object.class);
       return ResponseEntity.ok(response);
@@ -203,6 +216,90 @@ public class AnimeController {
       return imgElements.get(0).attr("src");
     } else {
       return null;
+    }
+  }
+  @GetMapping("/recent-release")
+  public ResponseEntity<Object> getRecentRelease(@RequestParam(name = "page", required = false) String page) {
+    try {
+      String url = "http://localhost:3000/recent-release?page=" + page;
+      HttpHeaders headers = new HttpHeaders();
+      headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+      HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+      return restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+    } catch (Exception e) {
+      // handle any errors
+      return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  @GetMapping("/new-season")
+  public ResponseEntity<Object> getNewSeason(@RequestParam(name = "page", required = false) String page) {
+    try {
+      String url = "http://localhost:3000/new-season?page=" + page;
+      HttpHeaders headers = new HttpHeaders();
+      headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+      HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+      return restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+    } catch (Exception e) {
+      // handle any errors
+      return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  @GetMapping("/ongoing-anime")
+  public ResponseEntity<Object> getOngoing(@RequestParam(name = "page", required = false) String page) {
+    try {
+      String url = "http://localhost:3000/ongoing-anime?page=" + page;
+      HttpHeaders headers = new HttpHeaders();
+      headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+      HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+      return restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+    } catch (Exception e) {
+      // handle any errors
+      return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  @GetMapping("/completed-anime")
+  public ResponseEntity<Object> getCompleted(@RequestParam(name = "page", required = false) String page) {
+    try {
+      String url = "http://localhost:3000/completed-anime?page=" + page;
+      HttpHeaders headers = new HttpHeaders();
+      headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+      HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+      return restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+    } catch (Exception e) {
+      // handle any errors
+      return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  @GetMapping("/popular-anime")
+  public ResponseEntity<Object> getPopular(@RequestParam(name = "page", required = false) String page) {
+    try {
+      String url = "http://localhost:3000/popular?page=" + page;
+      HttpHeaders headers = new HttpHeaders();
+      headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+      HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+      return restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+    } catch (Exception e) {
+      // handle any errors
+      return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  @GetMapping("/getAnime/{id}")
+  public ResponseEntity<Object> getAnime(@RequestParam(name = "id") String id) {
+    try {
+      String url = "http://localhost:3000/getAnime/" + id;
+      HttpHeaders headers = new HttpHeaders();
+      headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+      HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+      return restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+    } catch (Exception e) {
+      // handle any errors
+      return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
