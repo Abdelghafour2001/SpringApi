@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 import java.util.Arrays;
@@ -95,9 +96,13 @@ public class AnimeController {
   @GetMapping("/season/{season}")
   public ResponseEntity<?> getSeasonPage(@PathVariable("season") String season, @RequestParam(name="page", required = false) String page) {
     try {
-      String url = "http://localhost:3000/season/" + season + "?page=" + page;
-      RestTemplate restTemplate = new RestTemplate();
-      Object response = restTemplate.getForObject(url, Object.class);
+      String url = "http://localhost:3000/season/" + season;
+      UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+      if (page != null) {
+        builder.queryParam("page", page);
+      }
+      String apiUrl = builder.toUriString();
+      Object response = restTemplate.getForObject(apiUrl, Object.class);
       return ResponseEntity.ok(response);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -232,9 +237,9 @@ public class AnimeController {
     }
   }
   @GetMapping("/recent-release")
-  public ResponseEntity<Object> getRecentRelease(@RequestParam(name = "page", required = false) String page) {
+  public ResponseEntity<Object> getRecentRelease(@RequestParam(name = "type", required = false) String type,@RequestParam(name = "page", required = false) String page) {
     try {
-      String url = "http://localhost:3000/recent-release?page=" + page;
+      String url = "http://localhost:3000/recent-release?type=" + type+"?page="+page;
       HttpHeaders headers = new HttpHeaders();
       headers.setAccept(List.of(MediaType.APPLICATION_JSON));
       HttpEntity<String> entity = new HttpEntity<String>(headers);
@@ -290,6 +295,7 @@ public class AnimeController {
   @GetMapping("/popular-anime")
   public ResponseEntity<Object> getPopular(@RequestParam(name = "page", required = false) String page) {
     try {
+      if(page==null){page="1";}
       String url = "http://localhost:3000/popular?page=" + page;
       HttpHeaders headers = new HttpHeaders();
       headers.setAccept(List.of(MediaType.APPLICATION_JSON));
