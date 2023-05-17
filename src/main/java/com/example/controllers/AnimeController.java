@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-
+@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
 @RestController
 @RequestMapping({"/anime"})
 public class AnimeController {
@@ -93,7 +93,7 @@ public class AnimeController {
   }
 
   @GetMapping("/season/{season}")
-  public ResponseEntity<?> getSeasonPage(@PathVariable("season") String season, @RequestParam int page) {
+  public ResponseEntity<?> getSeasonPage(@PathVariable("season") String season, @RequestParam(name="page", required = false) String page) {
     try {
       String url = "http://localhost:3000/season/" + season + "?page=" + page;
       RestTemplate restTemplate = new RestTemplate();
@@ -136,7 +136,20 @@ public class AnimeController {
       return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+  @GetMapping("/top-airing")
+  public ResponseEntity<Object> getTopAiring(@RequestParam(name = "page", required = false) String page) {
+    try {
+      String url = "http://localhost:3000/top-airing?page=" + page;
+      HttpHeaders headers = new HttpHeaders();
+      headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+      HttpEntity<String> entity = new HttpEntity<String>(headers);
 
+      return restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
+    } catch (Exception e) {
+      // handle any errors
+      return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
   @GetMapping("/animeList")
   public ResponseEntity<Object> getAnimeList(@RequestParam int page) {
 
