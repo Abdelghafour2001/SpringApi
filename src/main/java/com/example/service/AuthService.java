@@ -10,7 +10,7 @@ import com.example.model.User;
 import com.example.model.VerificationToken;
 import com.example.repository.UserRepository;
 import com.example.repository.VerificationTokenRepository;
-import com.programming.techie.springredditclone.security.JwtProvider;
+import com.example.security.JwtProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;

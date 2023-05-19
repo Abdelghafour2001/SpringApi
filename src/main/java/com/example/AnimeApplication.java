@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableJpaRepositories("com.example.repository")
 @EnableAsync
-@Import(com.example.conf.OpenAPIConfiguration.class)
 public class AnimeApplication {
 
     public static void main(String[] args) {
