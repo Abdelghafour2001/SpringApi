@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListData {
-    Data data;
-
+public class Genre {
+String title;
+String url;
 }

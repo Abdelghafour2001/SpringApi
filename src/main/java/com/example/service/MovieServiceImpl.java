@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.model.Data;
 import com.example.model.ListData;
+import com.example.model.ListGenres;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
@@ -134,8 +135,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:3030/api/all-genres");
             String apiUrl = builder.toUriString();
-            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
-            return ResponseEntity.ok(response.getData().getResults());
+            ListGenres response = restTemplate.getForObject(apiUrl, ListGenres.class);
+            return ResponseEntity.ok(response.getData());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
