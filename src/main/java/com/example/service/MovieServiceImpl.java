@@ -1,18 +1,30 @@
 package com.example.service;
 
+import com.example.model.Data;
+import com.example.model.ListData;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+import java.util.Map;
+
+@Service
 public class MovieServiceImpl implements MovieService {
     @Override
     public ResponseEntity<Object> getMovies(String page, RestTemplate restTemplate) {
         try {
             if(page==null){page="1";}
             String apiUrl = "http://localhost:3030/api/movies?page=" + page;
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -24,8 +36,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             if(page==null){page="1";}
             String apiUrl = "http://localhost:3030/api/tv-shows?page=" + page;
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -37,8 +49,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             //if(page==null){page="1";}
             String apiUrl = "http://localhost:3030/api/streaming?mediaId=" + mediaId+"&episodeId="+episodeId+"&server="+server;
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -70,8 +82,8 @@ public class MovieServiceImpl implements MovieService {
             }
             // Get the final API URL
             String apiUrl = builder.toUriString();
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -81,8 +93,8 @@ public class MovieServiceImpl implements MovieService {
     public ResponseEntity<Object> getEpisodeServers(String mediaId, String episodeId, RestTemplate restTemplate) {
         try {
             String apiUrl = "http://localhost:3030/api/episode-servers?mediaId=" + mediaId+"&episodeId="+episodeId;
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -92,8 +104,8 @@ public class MovieServiceImpl implements MovieService {
     public ResponseEntity<Object> getMovieInfo(String mediaId, RestTemplate restTemplate) {
         try {
             String apiUrl = "http://localhost:3030/api/info?mediaId=" + mediaId;
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -110,8 +122,8 @@ public class MovieServiceImpl implements MovieService {
                 builder.queryParam("page", page);
             }
             String apiUrl = builder.toUriString();
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -122,8 +134,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:3030/api/all-genres");
             String apiUrl = builder.toUriString();
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -134,8 +146,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:3030/api/all-countries");
             String apiUrl = builder.toUriString();
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -146,8 +158,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:3030/api/filters-list");
             String apiUrl = builder.toUriString();
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -158,8 +170,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             if (page==null){page="1";}
             String apiUrl = "http://localhost:3030/api/country/" + country+"?page="+page;
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -170,8 +182,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             if (page==null){page="1";}
             String apiUrl = "http://localhost:3030/api/genre/" + genre+"?page="+page;
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
@@ -182,8 +194,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             if (page==null){page="1";}
             String apiUrl = "http://localhost:3030/api/search/" + query+"?page="+page;
-            Object response = restTemplate.getForObject(apiUrl, Object.class);
-            return ResponseEntity.ok(response);
+            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
+            return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());

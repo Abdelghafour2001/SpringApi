@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class MoviesController {
     private RestTemplate restTemplate;
+    @Autowired
     MovieService service;
     public MoviesController() {
         restTemplate = new RestTemplate();
