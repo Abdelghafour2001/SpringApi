@@ -26,13 +26,4 @@ public interface MovieService {
     ResponseEntity<Object> getMovieByGenre(String genre,String page,RestTemplate restTemplate);
     ResponseEntity<Object> search(String query,String page, RestTemplate restTemplate);
 
-
-
-
-
-
-
-
-
-
     }

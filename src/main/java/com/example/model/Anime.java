@@ -21,6 +21,9 @@ public class Anime {
   private String genres[];
   private String otherNames[];
   private String synopsis;
+  private String episodeNum;
+  private String episodeId;
+  private String subOrDub;
   private String totalEpisodes;
  private List<GogoEpisode> episodesList;
 }
