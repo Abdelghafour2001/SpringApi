@@ -69,10 +69,7 @@ return service.getSeasonPage(season,page,restTemplate);
     return service.getAnimeAZPage(aph,page,restTemplate);
   }
 
-  @GetMapping("/anime-list-page")
-  public ResponseEntity<Object> getAnimeListpage(@RequestParam(name = "page", required = false) String page) {
-return service.getAnimeListpage(page,restTemplate);
-  }
+
   @GetMapping("/top-airing")
   public ResponseEntity<Object> getTopAiring(@RequestParam(name = "page", required = false) String page) {
 return service.getTopAiring(page,restTemplate);

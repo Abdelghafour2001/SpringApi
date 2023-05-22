@@ -1,9 +1,7 @@
 package com.example.dto;
-import com.example.model.GogoEpisode;
+import com.example.model.Episode;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,5 +25,5 @@ public class AnimeDTO implements Serializable {
   private String otherNames[];
   private String synopsis;
   private String totalEpisodes;
-  private List<GogoEpisode> episodesList;
+  private List<Episode> episodesList;
 }

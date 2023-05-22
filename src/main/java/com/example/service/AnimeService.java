@@ -17,7 +17,6 @@ public interface AnimeService {
         ResponseEntity<?> getGenrePage(String genre,String page,RestTemplate restTemplate);
         ResponseEntity<?> getSeasonPage(String season,String page,RestTemplate restTemplate);
         ResponseEntity<Object> getAnimeAZPage( String aph, String page,RestTemplate restTemplate);
-        ResponseEntity<Object> getAnimeListpage(String page,RestTemplate restTemplate);
         ResponseEntity<Object> getTopAiring(String page,RestTemplate restTemplate);
         ResponseEntity<Object> getAnimeList( String page,RestTemplate restTemplate);
         ResponseEntity<Object> getRecentRelease(String type,String page,RestTemplate restTemplate);

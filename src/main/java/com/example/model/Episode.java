@@ -5,7 +5,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @ToString
-public class GogoEpisode {
+public class Episode {
   private String episodeId;
   private  String episodeNum;
   private String episodeUrl;
