@@ -62,7 +62,7 @@ public class AnimeServiceImpl implements AnimeService{
             anime.setAnimeId(animeId);
             anime.setAnimeTitle(animeTitle);
             listAnime.add(anime);
-            System.out.println(animeTitle);
+            //System.out.println(animeTitle);
         }return ResponseEntity.status(HttpStatus.OK).body(listAnime);
     } catch (Exception e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -131,7 +131,7 @@ public class AnimeServiceImpl implements AnimeService{
             anime.setAnimeNameWithEP(anime_name_with_ep);
             anime.setGogoserver(gogoserver);
             anime.setEp_download(download);
-            System.out.println(episode_link);
+           // System.out.println(episode_link);
 
         return ResponseEntity.status(HttpStatus.OK).body(anime);
     } catch (Exception e) {
@@ -369,7 +369,7 @@ public class AnimeServiceImpl implements AnimeService{
                 anime.setAnimeImg(imgUrl);
                 anime.setStatus(status);
                 listAnime.add(anime);
-                System.out.println(imgUrl);
+                //System.out.println(imgUrl);
             }
             return ResponseEntity.status(HttpStatus.OK).body(listAnime);
         } catch (Exception e) {
@@ -447,7 +447,7 @@ public class AnimeServiceImpl implements AnimeService{
                 anime.setAnimeImg(imgUrl);
                 anime.setStatus(status);
                 listAnime.add(anime);
-                System.out.println(imgUrl);
+                //System.out.println(imgUrl);
             }
             return ResponseEntity.status(HttpStatus.OK).body(listAnime);
         } catch (Exception e) {
