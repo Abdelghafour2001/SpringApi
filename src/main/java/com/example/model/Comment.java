@@ -1,28 +1,28 @@
 package com.example.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@Getter
-@Setter
-@AllArgsConstructor
+
 @NoArgsConstructor
-@Entity
+@AllArgsConstructor
+@Builder
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String text;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "postId", referencedColumnName = "postId")
-    private Post post;
-    private Instant createdDate;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
-    private User user;
+    private String author;
+    private AtomicInteger likeCount = new AtomicInteger(0);
+    private AtomicInteger disLikeCount = new AtomicInteger(0);
+
+    public int likeCount() {
+        return likeCount.get();
+    }
+
+    public int disLikeCount() {
+        return disLikeCount.get();
+    }
 }
