@@ -99,7 +99,7 @@ return service.getTopAiring(page,restTemplate);
  return service.getPopular(page,restTemplate);
   }
   @GetMapping("/getAnime/{id}")
-  public ResponseEntity<Object> getAnime(@RequestParam(name = "id") String id) {
+  public ResponseEntity<Object> getAnime(@PathVariable(name = "id") String id) {
       return service.getAnime(id,restTemplate);
   }
 

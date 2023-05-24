@@ -102,19 +102,9 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-		</dependency>
+
 	<!-- Spring Fox Dependencies -->
-	<dependency>
-		<groupId>org.springdoc</groupId>
-		<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.springdoc</groupId>
-		<artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-	</dependency>
+
 	<!-- For Displaying time as Relative Time Ago ("Posted 1 Day ago")-->
 	<dependency>
 		<groupId>com.github.marlonlom</groupId>
