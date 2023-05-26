@@ -4,10 +4,12 @@ import com.example.dto.AuthenticationResponse;
 import com.example.dto.LoginRequest;
 import com.example.dto.RefreshTokenRequest;
 import com.example.dto.RegisterRequest;
+import com.example.model.User;
 import com.example.service.AuthService;
 import com.example.service.RefreshTokenService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +35,11 @@ public class AuthController {
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activated Successfully", OK);
     }
-
+    @GetMapping("getAccountData/{token}")
+    public ResponseEntity<Object> getAccountData(@PathVariable String token) {
+        User user=authService.getAccountData(token);
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
     @PostMapping("/login")
     public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);

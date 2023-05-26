@@ -115,4 +115,9 @@ public class AuthService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
+
+    public User getAccountData(String token) {
+        return userRepository.findByUsername(token)
+                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + token));
+    }
 }
