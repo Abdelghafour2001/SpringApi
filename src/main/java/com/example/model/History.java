@@ -19,10 +19,13 @@ public class History {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
+    private String username;
     private String anime_id;
    private String type;
    private String released;
     private String animeTitle;
     private String dubOrSub;
     private Instant createdDate;
+
+
 }

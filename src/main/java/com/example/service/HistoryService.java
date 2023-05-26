@@ -37,7 +37,13 @@ public class HistoryService {
         return historyRepository.findByUser(user);
     }
 
-    public History saveHistory(History history) {
+    public History saveHistory(History history)
+    {
+        History history1 =  new History();
+        history1= history;
+        User user = userRepository.findByUsername(history.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException(history.getUsername()));
+        history1.setUser(user);
         return historyRepository.save(history);
     }
     public void deleteHistory(History history) {

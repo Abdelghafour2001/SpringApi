@@ -71,7 +71,7 @@ public class AuthController {
         watchListService.saveWatchList(watchList);
         return ResponseEntity.status(OK).body("Added to history Successfully!!");
     }
-    @GetMapping(value = "/watchList",params = "username")
+    @GetMapping(value = "/userWatchList",params = "username")
     public ResponseEntity<List<WatchList>> getWatchList(@RequestParam String username) {
         return status(HttpStatus.OK).body(watchListService.getWatchListByUser(username));
     }
