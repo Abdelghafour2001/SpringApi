@@ -32,7 +32,7 @@ public class PostService {
     private final SubredditRepository subredditRepository;
     private final UserRepository userRepository;
     private final AuthService authService;
-   private final PostMapper postMapper;
+    private final PostMapper postMapper;
 
     public void save(PostRequest postRequest) {
         Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
