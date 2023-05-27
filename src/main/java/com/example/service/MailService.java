@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 @Slf4j
+public
 class MailService {
 
     private final JavaMailSender mailSender;

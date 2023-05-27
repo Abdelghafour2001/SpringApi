@@ -39,7 +39,7 @@ public class CommentService {
         sendCommentNotification(message, post.getUser());
     }
 
-    private void sendCommentNotification(String message, User user) {
+    public void sendCommentNotification(String message, User user) {
         mailService.sendMail(new NotificationEmail(user.getUsername() + " Commented on your post", user.getEmail(), message));
     }
 
