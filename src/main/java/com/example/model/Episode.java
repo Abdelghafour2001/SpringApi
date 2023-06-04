@@ -1,5 +1,8 @@
 package com.example.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -9,12 +12,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
+@Entity
 public class Episode {
+  @Id
   private String episodeId;
   private  String episodeNum;
   private String episodeUrl;
-  private List<Comment> comments = new ArrayList<>();
-  public void addComment(Comment comment) {
-    comments.add(comment);
-  }
+  @OneToMany(mappedBy = "episode")
+  private List<Comment> comments;
+
+
 }

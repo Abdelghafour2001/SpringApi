@@ -1,13 +1,10 @@
 package com.example.service;
 
 import com.example.dto.CommentsDto;
+import com.example.model.*;
 import com.example.util.PostNotFoundException;
 import com.example.util.SpringRedditException;
 import com.example.mapper.CommentMapper;
-import com.example.model.Comment;
-import com.example.model.NotificationEmail;
-import com.example.model.Post;
-import com.example.model.User;
 import com.example.repository.CommentRepository;
 import com.example.repository.PostRepository;
 import com.example.repository.UserRepository;
@@ -64,5 +61,9 @@ public class CommentService {
             throw new SpringRedditException("Comments contains unacceptable language");
         }
         return false;
+    }
+
+    public List<CommentsDto> getCommentsByEpisodeId(Episode episode) {
+        return commentRepository.findAllByEpisode(episode);
     }
 }

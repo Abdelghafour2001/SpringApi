@@ -1,6 +1,8 @@
 package com.example.repository;
 
+import com.example.dto.CommentsDto;
 import com.example.model.Comment;
+import com.example.model.Episode;
 import com.example.model.Post;
 import com.example.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +15,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     List<Comment> findByPost(Post post);
 
     List<Comment> findAllByUser(User user);
+    List<CommentsDto> findAllByEpisode(Episode episode);
 }
