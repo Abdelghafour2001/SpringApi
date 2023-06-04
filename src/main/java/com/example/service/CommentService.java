@@ -57,7 +57,7 @@ public class CommentService {
     }
 
     public boolean containsSwearWords(String comment) {
-        if (comment.contains("shit")) {
+        if (comment.contains("shhh")) {
             throw new SpringRedditException("Comments contains unacceptable language");
         }
         return false;
