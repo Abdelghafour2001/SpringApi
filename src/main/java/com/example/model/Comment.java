@@ -25,4 +25,10 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "episodeId", referencedColumnName = "episodeId")
+    private Episode episode;
+
+
 }
