@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableJpaRepositories("com.example.repository")
 @EnableAsync
+
 public class AnimeApplication {
     public static void main(String[] args) {
         SpringApplication.run(AnimeApplication.class, args);
