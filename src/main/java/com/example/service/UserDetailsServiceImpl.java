@@ -1,12 +1,7 @@
 package com.example.service;
 
-import com.example.dto.PostRequest;
-import com.example.dto.SubredditDto;
-import com.example.dto.UserDto;
-import com.example.model.Subreddit;
 import com.example.model.User;
 import com.example.repository.UserRepository;
-import com.example.util.SubredditNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
 
@@ -53,5 +47,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public User save(User user) {
 
        return userRepository.save(user);
+    }
+    public void deleteById(User user) {
+
+        userRepository.deleteById(user.getUserId());
+    }
+    public Optional<User> getById(User user){
+        Optional<User> userOptional = userRepository.findById(user.getUserId());
+        return userOptional;
     }
 }

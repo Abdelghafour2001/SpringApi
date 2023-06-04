@@ -1,18 +1,15 @@
 package com.example.controllers;
 
-import com.example.dto.SubredditDto;
 import com.example.model.User;
-import com.example.repository.UserRepository;
-import com.example.service.CommentService;
 import com.example.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -39,25 +36,27 @@ public class UserController {
                .body(userDetailsService.save(user));
    }
 
-   /*  @GetMapping("/getUserById/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+ @GetMapping("/getUserById/{id}")
+    public Optional<User> getUserById(@PathVariable Long id) {
+        User dummy = new User();
+        dummy.setUserId(id);
+        return userDetailsService.getById(dummy);
     }
 
-    @PutMapping("/updateUser/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        user.setUsername(updatedUser.getUsername());
-        user.setPassword(updatedUser.getPassword());
-        user.setEmail(updatedUser.getEmail());
-        return userRepository.save(user);
-    }
-
+       @PutMapping("/updateUser/{id}")
+          public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+          User user = userDetailsService.getById(updatedUser)
+                  .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+          user.setUsername(updatedUser.getUsername());
+          user.setPassword(updatedUser.getPassword());
+          user.setEmail(updatedUser.getEmail());
+          return userDetailsService.save(user);
+      }
     @DeleteMapping("/deleteUser/{id}")
     public void deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
-    }*/
+        User dummy = new User();
+        dummy.setUserId(id);
+       userDetailsService.deleteById(dummy);
+    }
 }
 
