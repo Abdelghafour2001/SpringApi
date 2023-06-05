@@ -30,6 +30,8 @@ public class PostMapper {
     public Post map(PostRequest postRequest, Subreddit subreddit, User user) {
         Post post = new Post();
         post.setCreatedDate(Instant.now());
+        post.setPostName(postRequest.getPostName());
+        post.setUrl(postRequest.getUrl());
         post.setDescription(postRequest.getDescription());
         post.setSubreddit(subreddit);
         post.setVoteCount(0);
@@ -43,8 +45,11 @@ public class PostMapper {
         postResponse.setSubredditName(post.getSubreddit().getName());
         postResponse.setUserName(post.getUser().getUsername());
         postResponse.setCommentCount(commentCount(post));
+        postResponse.setUrl(post.getUrl());
+        postResponse.setDescription(post.getDescription());
         postResponse.setDuration(getDuration(post));
         postResponse.setUpVote(isPostUpVoted(post));
+        postResponse.setPostName(post.getPostName());
         postResponse.setDownVote(isPostDownVoted(post));
         return postResponse;
     }

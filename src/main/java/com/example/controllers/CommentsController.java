@@ -4,6 +4,7 @@ import com.example.dto.CommentsDto;
 import com.example.model.Comment;
 import com.example.model.Episode;
 import com.example.repository.EpisodeRepository;
+import com.example.service.AnimeService;
 import com.example.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,11 @@ import static org.springframework.http.HttpStatus.OK;
 @AllArgsConstructor
 public class CommentsController {
     private final CommentService commentService;
+    private final AnimeService animeService;
     private final EpisodeRepository episodeRepository;
 
 
-    @PostMapping
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Void> createComment(@RequestBody CommentsDto commentsDto) {
         commentService.save(commentsDto);
         return new ResponseEntity<>(CREATED);
@@ -41,10 +43,10 @@ public class CommentsController {
                 .body(commentService.getAllCommentsForUser(userName));
     }
     @GetMapping(params = "episodeId")
-    public List<CommentsDto> getCommentsByEpisode(@PathVariable String episodeId) {
-
+    public ResponseEntity<List<CommentsDto>> getCommentsByEpisode(@PathVariable String episodeId) {
         Episode episode = episodeRepository.findEpisodeByEpisodeId(episodeId);
-        return commentService.getCommentsByEpisodeId(episode);
+        return ResponseEntity.status(OK)
+                .body(commentService.getCommentsByEpisodeId(episode));
     }
 
 }

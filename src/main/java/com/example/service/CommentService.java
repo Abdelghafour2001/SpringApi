@@ -23,7 +23,6 @@ public class CommentService {
     private final AuthService authService;
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
-    private final MailContentBuilder mailContentBuilder;
     private final MailService mailService;
 
     public void save(CommentsDto commentsDto) {
@@ -32,7 +31,7 @@ public class CommentService {
         User user = authService.getCurrentUser();
         Comment comment = commentMapper.map(commentsDto, post, user);
         commentRepository.save(comment);
-        String message = mailContentBuilder.build(post.getUser().getUsername() + " posted a comment on your post." + POST_URL);
+        String message = post.getUser().getUsername() + " posted a comment on your post." + POST_URL;
         sendCommentNotification(message, post.getUser());
     }
 
