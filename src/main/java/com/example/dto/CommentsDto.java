@@ -2,10 +2,10 @@ package com.example.dto;
 
 import com.example.model.Post;
 import com.example.model.User;
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Data
@@ -16,7 +16,7 @@ import java.time.Instant;
 public class CommentsDto {
     private Long id;
     private Long postId;
-    private Instant createdDate;
+    private String createdDate;
     @NotBlank
     private String text;
     private String userName;

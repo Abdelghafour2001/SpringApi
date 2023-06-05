@@ -37,10 +37,10 @@ public class CommentsController {
                 .body(commentService.getAllCommentsForPost(postId));
     }
 
-    @GetMapping(params = "userName")
-    public ResponseEntity<List<CommentsDto>> getAllCommentsForUser(@RequestParam String userName){
+    @GetMapping(params = "username")
+    public ResponseEntity<List<CommentsDto>> getAllCommentsForUser(@RequestParam String username){
         return ResponseEntity.status(OK)
-                .body(commentService.getAllCommentsForUser(userName));
+                .body(commentService.getAllCommentsForUser(username));
     }
     @GetMapping(params = "episodeId")
     public ResponseEntity<List<CommentsDto>> getCommentsByEpisode(@PathVariable String episodeId) {

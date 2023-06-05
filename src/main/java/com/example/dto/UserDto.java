@@ -20,7 +20,7 @@ public class UserDto {
     private String username;
     private String password;
     private String email;
-    private Instant created;
+    private String created;
     private boolean enabled;
 
 

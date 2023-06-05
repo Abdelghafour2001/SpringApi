@@ -1,7 +1,12 @@
 package com.example.service;
 
+import com.example.dto.UserDto;
+import com.example.mapper.SubredditMapper;
+import com.example.mapper.UserMapper;
+import com.example.model.Subreddit;
 import com.example.model.User;
 import com.example.repository.UserRepository;
+import com.example.util.SpringRedditException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +26,8 @@ import static java.util.Collections.singletonList;
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -52,8 +59,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         userRepository.deleteById(user.getUserId());
     }
-    public Optional<User> getById(User user){
-        Optional<User> userOptional = userRepository.findById(user.getUserId());
-        return userOptional;
+    public UserDto getById(User user){
+        User userOptional = userRepository.findById(user.getUserId())
+                .orElseThrow(() -> new SpringRedditException("No subreddit found with ID - " + user.getUsername()));
+        return userMapper.mapUserToDto(userOptional);
+
     }
 }

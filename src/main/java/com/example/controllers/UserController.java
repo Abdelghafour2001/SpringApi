@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.dto.UserDto;
 import com.example.model.User;
 import com.example.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ public class UserController {
    }
 
  @GetMapping("/getUserById/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
+    public UserDto getUserById(@PathVariable Long id) {
         User dummy = new User();
         dummy.setUserId(id);
         return userDetailsService.getById(dummy);
@@ -45,8 +46,8 @@ public class UserController {
 
        @PutMapping("/updateUser/{id}")
           public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-          User user = userDetailsService.getById(updatedUser)
-                  .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+          UserDto userdto = userDetailsService.getById(updatedUser);
+          User user = new User();
           user.setUsername(updatedUser.getUsername());
           user.setPassword(updatedUser.getPassword());
           user.setEmail(updatedUser.getEmail());

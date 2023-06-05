@@ -105,7 +105,7 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/comments/**")
                         .permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/comments/")
+                        .requestMatchers(HttpMethod.POST, "/api/comments")
                         .permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/comments/**")
                         .permitAll()
