@@ -7,19 +7,16 @@ import com.example.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 public class AdminController {
     @Autowired
     AdminService adminService;
 
-    private RestTemplate restTemplate;
-
-    public AdminController(){restTemplate = new RestTemplate();}
 
     @DeleteMapping("/post/{postId}")
     public ResponseEntity<Object> deletePost(@RequestParam("postId") Long postId) {
@@ -50,5 +47,7 @@ public class AdminController {
     public ResponseEntity<List<Comment>> getAllComment(){
         return ResponseEntity.ok(adminService.getAllcomments());
     }
+
+
 
 }
