@@ -32,7 +32,9 @@ public class MoviesController {
     }
     //http://localhost:8080/movies/getStreaming?mediaId=watch-the-best-man-96607&episodeId=96607&server=UpCloud
     @GetMapping("/getStreaming")
-    public ResponseEntity<Object> getStreaming(@RequestParam(name = "mediaId") String mediaId,@RequestParam(name = "episodeId") String episodeId,@RequestParam(name = "server") String server) {
+    public ResponseEntity<Object> getStreaming(@RequestParam(name = "mediaId") String mediaId,
+                                               @RequestParam(name = "episodeId") String episodeId,
+                                               @RequestParam(name = "server") String server) {
         return service.getStreaming(mediaId,episodeId,server,restTemplate);
     }
     @GetMapping("/getFiltered")
@@ -46,7 +48,8 @@ public class MoviesController {
         return  service.getFiltered(type,quality,released,genre,country,page,restTemplate);
     }
     @GetMapping("/getEpisodeServers")
-    public ResponseEntity<Object> getEpisodeServers(@RequestParam(name = "mediaId") String mediaId,@RequestParam(name = "episodeId") String episodeId) {
+    public ResponseEntity<Object> getEpisodeServers(@RequestParam(name = "mediaId") String mediaId,
+                                                    @RequestParam(name = "episodeId") String episodeId) {
         return service.getEpisodeServers(mediaId,episodeId,restTemplate);
     }
     @GetMapping("/getMovieInfo")

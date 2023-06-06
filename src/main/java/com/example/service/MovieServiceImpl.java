@@ -107,7 +107,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public ResponseEntity<Object> getMovieInfo(String mediaId, RestTemplate restTemplate) {
         try {
-            String apiUrl = "http://localhost:3030/api/info?mediaId=" + mediaId;
+            String apiUrl = "http://localhost:3030/api/info?mediaId=movie/" + mediaId;
             ListData response = restTemplate.getForObject(apiUrl, ListData.class);
             return ResponseEntity.ok(response.getData().getResults());
         } catch (Exception e) {
