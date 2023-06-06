@@ -1,5 +1,6 @@
 package com.example.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -10,11 +11,12 @@ import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 public class Episode {
   @Id
+  @Column(length = 55)
   private String episodeId;
   private  String episodeNum;
   private String episodeUrl;

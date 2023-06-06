@@ -30,5 +30,4 @@ public class Comment {
     @JoinColumn(name = "episodeId", referencedColumnName = "episodeId")
     private Episode episode;
 
-
 }

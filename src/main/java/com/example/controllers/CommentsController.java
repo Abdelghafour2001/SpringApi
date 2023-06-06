@@ -21,8 +21,7 @@ import static org.springframework.http.HttpStatus.OK;
 @AllArgsConstructor
 public class CommentsController {
     private final CommentService commentService;
-    private final AnimeService animeService;
-    private final EpisodeRepository episodeRepository;
+
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
@@ -44,9 +43,8 @@ public class CommentsController {
     }
     @GetMapping(params = "episodeId")
     public ResponseEntity<List<CommentsDto>> getCommentsByEpisode(@PathVariable String episodeId) {
-        Episode episode = episodeRepository.findEpisodeByEpisodeId(episodeId);
         return ResponseEntity.status(OK)
-                .body(commentService.getCommentsByEpisodeId(episode));
+                .body(commentService.getCommentsByEpisodeId(episodeId));
     }
 
 }

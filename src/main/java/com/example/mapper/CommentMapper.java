@@ -2,6 +2,7 @@ package com.example.mapper;
 
 import com.example.dto.CommentsDto;
 import com.example.model.Comment;
+import com.example.model.Episode;
 import com.example.model.Post;
 import com.example.model.User;
 
@@ -30,5 +31,14 @@ public class CommentMapper {
         commentsDto.setPostId(comment.getPost().getPostId());
         commentsDto.setUserName(comment.getUser().getUsername());
         return commentsDto;
+    }
+
+    public Comment mapToEpisode(CommentsDto commentsDto, Episode episode, User user) {
+        Comment comment = new Comment();
+        comment.setText(commentsDto.getText());
+        comment.setCreatedDate(Instant.now());
+        comment.setEpisode(episode);
+        comment.setUser(user);
+        return comment;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.dto;
 
+import com.example.model.Episode;
 import com.example.model.Post;
 import com.example.model.User;
 import jakarta.validation.constraints.NotBlank;
@@ -16,10 +17,12 @@ import java.time.Instant;
 public class CommentsDto {
     private Long id;
     private Long postId;
+    private String episodeId;
     private String createdDate;
     @NotBlank
     private String text;
     private String userName;
     private User user;
 private Post post;
+    private Episode episode;
 }

@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.dto.CommentsDto;
 import com.example.model.*;
+import com.example.repository.EpisodeRepository;
 import com.example.util.PostNotFoundException;
 import com.example.util.SpringRedditException;
 import com.example.mapper.CommentMapper;
@@ -24,15 +25,32 @@ public class CommentService {
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
     private final MailService mailService;
+    private final AnimeService animeService;
+    private final EpisodeRepository episodeRepository;
 
     public void save(CommentsDto commentsDto) {
-        Post post = postRepository.findById(commentsDto.getPostId())
+        //hna ndir if else
+        Post post = new Post();
+        Comment comment = new Comment();
+        User user = new User();
+    if(commentsDto.getPostId()!=null) {
+        post = postRepository.findById(commentsDto.getPostId())
                 .orElseThrow(() -> new PostNotFoundException(commentsDto.getPostId().toString()));
-        User user = authService.getCurrentUser();
-        Comment comment = commentMapper.map(commentsDto, post, user);
-        commentRepository.save(comment);
+        user = authService.getCurrentUser();
         String message = post.getUser().getUsername() + " posted a comment on your post." + POST_URL;
         sendCommentNotification(message, post.getUser());
+        comment = commentMapper.map(commentsDto, post, user);
+    }else if (commentsDto.getEpisodeId()!=null) {
+         user = authService.getCurrentUser();
+         Episode ep = new Episode();
+         ep.setEpisodeId(commentsDto.getEpisodeId());
+        episodeRepository.save(ep);
+         ep.setEpisodeId(commentsDto.getEpisodeId());
+        comment = commentMapper.mapToEpisode(commentsDto,ep , user);
+
+    }
+        commentRepository.save(comment);
+
     }
 
     public void sendCommentNotification(String message, User user) {
@@ -62,7 +80,8 @@ public class CommentService {
         return false;
     }
 
-    public List<CommentsDto> getCommentsByEpisodeId(Episode episode) {
+    public List<CommentsDto> getCommentsByEpisodeId(String episodeId) {
+        Episode episode = episodeRepository.findEpisodeByEpisodeId(episodeId);
         return commentRepository.findAllByEpisode(episode);
     }
 }
