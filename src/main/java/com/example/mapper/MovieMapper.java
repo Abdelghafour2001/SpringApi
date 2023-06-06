@@ -4,7 +4,11 @@ import com.example.dto.MovieResponse;
 import com.example.dto.PostResponse;
 import com.example.model.Movie;
 import com.example.model.Post;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
+@AllArgsConstructor
 public class MovieMapper {
     public MovieResponse mapToDto(Movie movie) {
         MovieResponse movieResponse = new MovieResponse();
