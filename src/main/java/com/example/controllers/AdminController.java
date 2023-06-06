@@ -1,7 +1,5 @@
 package com.example.controllers;
 
-import com.example.dto.MovieRequest;
-import com.example.dto.PostRequest;
 import com.example.service.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +31,5 @@ public class AdminController {
     public ResponseEntity<String> deleteComment(@PathVariable Long commentId) {
         adminService.deleteComment(commentId);
         return ResponseEntity.status(HttpStatus.OK).body("Comment deleted successfully");
-    }
-    @PostMapping
-    public ResponseEntity<Void> createMovie(@RequestBody MovieRequest movieRequest) {
-        adminService.createMovie(movieRequest);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
