@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.dto.CommentsDto;
 import com.example.model.Comment;
+import com.example.model.Post;
 import com.example.model.User;
 import com.example.repository.CommentRepository;
 import com.example.repository.PostRepository;
@@ -32,18 +33,24 @@ public class AdminService {
     public void deletePost(Long postId) {
         postRepository.deleteById(postId);
     }
+    public Post getPostById(Long postId){
+        return postRepository.findByPostId(postId);
+    }
     public void deleteSubreddit(Long subredditId){
         subredditRepository.deleteById(subredditId);
     }
 
-
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
-    public void disableUser(String email){
-        User user = userRepository.findByEmail(email);
-        user.setEnabled(false);
-        userRepository.save(user);
+    public void disableUser(String username){
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isPresent()){
+            User user1 = user.get();
+            user1.setEnabled(false);
+            userRepository.save(user1);
+        }
+
     }
     public List<User> getAllUsers() {
         return userRepository.findAll();
