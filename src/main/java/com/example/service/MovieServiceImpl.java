@@ -1,27 +1,38 @@
 package com.example.service;
 
+import com.example.dto.MovieResponse;
+import com.example.mapper.MovieMapper;
 import com.example.model.*;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.springframework.http.HttpEntity;
+import com.example.repository.MovieRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class MovieServiceImpl implements MovieService {
+    private final MovieRepository movieRepository;
+    private final MovieMapper movieMapper;
+
+    public MovieServiceImpl(MovieRepository movieRepository, MovieMapper movieMapper) {
+        this.movieRepository = movieRepository;
+        this.movieMapper = movieMapper;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MovieResponse> getOurMovies() {
+        return movieRepository.findAll() .stream()
+                .map(movieMapper::mapToDto)
+                .collect(toList());
+    }
+
     @Override
     public ResponseEntity<Object> getMovies(String page, RestTemplate restTemplate) {
         try {
@@ -204,5 +215,7 @@ public class MovieServiceImpl implements MovieService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
         }    }
+
+
 
 }

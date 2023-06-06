@@ -1,5 +1,7 @@
 package com.example.controllers;
 
+import com.example.dto.MovieResponse;
+import com.example.model.Movie;
 import com.example.service.AnimeService;
 import com.example.service.MovieService;
 import lombok.AllArgsConstructor;
@@ -9,6 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
+
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping({"/movies"})
@@ -25,6 +31,10 @@ public class MoviesController {
     @GetMapping("/getMovies")
     public ResponseEntity<Object> getMovies(@RequestParam(name = "page", required = false) String page) {
         return service.getMovies(page,restTemplate);
+    }
+    @GetMapping("/getOurMovies")
+    public ResponseEntity<List<MovieResponse>> getOurMovies() {
+        return status(HttpStatus.OK).body(service.getOurMovies());
     }
     @GetMapping("/getTvshows")
     public ResponseEntity<Object> getTvshows(@RequestParam(name = "page", required = false) String page) {
