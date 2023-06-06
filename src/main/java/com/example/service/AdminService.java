@@ -37,6 +37,10 @@ public class AdminService {
     public Post getPostById(Long postId){
         return postRepository.findByPostId(postId);
     }
+
+    public List<Post> getAllPosts(){
+        return postRepository.findAll();
+    }
     public void deleteSubreddit(Long subredditId){
         subredditRepository.deleteById(subredditId);
     }
@@ -63,5 +67,8 @@ public class AdminService {
         commentRepository.deleteById(commentId);
     }
     public List<Comment> getAllcomments(){return commentRepository.findAll();}
+    public Comment getCommentById(Long commentId){
+        return commentRepository.getCommentById(commentId);
+    }
 
 }
