@@ -82,6 +82,8 @@ public class CommentService {
 
     public List<CommentsDto> getCommentsByEpisodeId(String episodeId) {
         Episode episode = episodeRepository.findEpisodeByEpisodeId(episodeId);
-        return commentRepository.findAllByEpisode(episode);
+        return commentRepository.findAllByEpisode(episode).stream()
+                .map(commentMapper::mapToDto2)
+                .toList();
     }
 }

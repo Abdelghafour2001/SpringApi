@@ -42,7 +42,7 @@ public class CommentsController {
                 .body(commentService.getAllCommentsForUser(username));
     }
     @GetMapping(params = "episodeId")
-    public ResponseEntity<List<CommentsDto>> getCommentsByEpisode(@PathVariable String episodeId) {
+    public ResponseEntity<List<CommentsDto>> getCommentsByEpisode(@RequestParam String episodeId) {
         return ResponseEntity.status(OK)
                 .body(commentService.getCommentsByEpisodeId(episodeId));
     }
