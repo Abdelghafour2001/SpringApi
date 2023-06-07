@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.dto.MovieRequest;
 import com.example.service.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,11 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     private final AdminService adminService;
-
+    @PostMapping
+    public ResponseEntity<Void> createMovie(@RequestBody MovieRequest movieRequest) {
+        adminService.createMovie(movieRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
