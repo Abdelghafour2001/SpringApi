@@ -119,8 +119,8 @@ public class MovieServiceImpl implements MovieService {
     public ResponseEntity<Object> getMovieInfo(String mediaId, RestTemplate restTemplate) {
         try {
             String apiUrl = "http://localhost:3030/api/info?mediaId=movie/" + mediaId;
-            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
-            return ResponseEntity.ok(response.getData().getResults());
+            Data response = restTemplate.getForObject(apiUrl, Data.class);
+            return ResponseEntity.ok(response.getData());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dto.MovieResponse;
+import com.example.model.Data;
 import com.example.model.Movie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public interface MovieService {
                                        String page,
                                        RestTemplate restTemplate);
     ResponseEntity<Object> getEpisodeServers(String mediaId,String episodeId,RestTemplate restTemplate);
-    ResponseEntity<Object> getMovieInfo(String mediaId,RestTemplate restTemplate);
+    ResponseEntity<Object> getMovieInfo(String mediaId, RestTemplate restTemplate);
     ResponseEntity<Object> getTopMoviesImdb(String type,String page,RestTemplate restTemplate);
     ResponseEntity<Object> getAllgenres(RestTemplate restTemplate);
     ResponseEntity<Object> getAllCountries(RestTemplate restTemplate);

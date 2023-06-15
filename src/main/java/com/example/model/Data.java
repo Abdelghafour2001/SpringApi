@@ -13,5 +13,5 @@ public class Data {
     String currentPage;
     String hasNextPage;
     Movie[] results;
-    Data data;
+    Object data;
 }
