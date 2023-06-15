@@ -64,8 +64,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             //if(page==null){page="1";}
             String apiUrl = "http://localhost:3030/api/streaming?mediaId=" + mediaId+"&episodeId="+episodeId+"&server="+server;
-            ListData response = restTemplate.getForObject(apiUrl, ListData.class);
-            return ResponseEntity.ok(response.getData().getResults());
+            Data response = restTemplate.getForObject(apiUrl, Data.class);
+            return ResponseEntity.ok(response.getData());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Error: " + e.getMessage());
