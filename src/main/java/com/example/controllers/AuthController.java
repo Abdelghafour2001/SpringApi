@@ -7,6 +7,8 @@ import com.example.dto.RegisterRequest;
 import com.example.model.History;
 import com.example.model.User;
 import com.example.model.WatchList;
+import com.example.repository.UserRepository;
+import com.example.repository.WatchListRepository;
 import com.example.service.AuthService;
 import com.example.service.HistoryService;
 import com.example.service.RefreshTokenService;
@@ -15,6 +17,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +34,8 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
     private final HistoryService historyService;
     private final WatchListService watchListService;
+    private final WatchListRepository watchRepository;
+    private final UserRepository userRepository;
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
         authService.signup(registerRequest);
@@ -68,8 +73,13 @@ public class AuthController {
     }
     @PostMapping("/watchList")
     public ResponseEntity<String> addToWatchList(@Valid @RequestBody WatchList watchList) {
+        String username= watchList.getUsername();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+        watchList.setUser(user);
         watchListService.saveWatchList(watchList);
-        return ResponseEntity.status(OK).body("Added to history Successfully!!");
+
+        return ResponseEntity.status(OK).body("Added to Watchlist Successfully!!");
     }
     @GetMapping(value = "/userWatchList",params = "username")
     public ResponseEntity<List<WatchList>> getWatchList(@RequestParam String username) {

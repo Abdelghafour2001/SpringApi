@@ -14,6 +14,7 @@ public class WatchList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long watchId;
     private String name;
+    private String username;
     private String url;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
