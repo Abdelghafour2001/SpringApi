@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -32,7 +34,14 @@ public class WatchListService {
 
         return watchRepository.save(watchList);
     }
-    public void deleteWatchList(WatchList watchList) {
-        watchRepository.delete(watchList);
+    public boolean deleteWatchListItem(Long id) {
+        Optional<WatchList> watchListItemOptional = watchRepository.findById(id);
+        if (watchListItemOptional.isPresent()) {
+            watchRepository.delete(watchListItemOptional.get());
+            return true; // Item successfully deleted
+        } else {
+            return false; // Item with the specified ID doesn't exist
+        }
     }
+
 }

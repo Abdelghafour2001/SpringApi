@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -64,6 +65,7 @@ public class AuthController {
     }
     @PostMapping("/history")
     public ResponseEntity<String> addToHistory(@Valid @RequestBody History history) {
+        history.setCreatedDate(Instant.now());
         historyService.saveHistory(history);
         return ResponseEntity.status(OK).body("Added to history Successfully!!");
     }
@@ -84,6 +86,15 @@ public class AuthController {
     @GetMapping(value = "/userWatchList",params = "username")
     public ResponseEntity<List<WatchList>> getWatchList(@RequestParam String username) {
         return status(HttpStatus.OK).body(watchListService.getWatchListByUser(username));
+    }
+    @DeleteMapping(value = "/userWatchList/{id}")
+    public ResponseEntity<String> deleteWatchListItem(@PathVariable Long id) {
+        boolean deleted = watchListService.deleteWatchListItem(id);
+        if (deleted) {
+            return ResponseEntity.ok("Watchlist item deleted successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
