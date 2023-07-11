@@ -41,7 +41,14 @@ public class CommentMapper {
         commentsDto.setUserName(comment.getUser().getUsername());
         return commentsDto;
     }
-
+    public CommentsDto mapToDto3(Comment comment) {
+        CommentsDto commentsDto = new CommentsDto();
+        commentsDto.setId(comment.getId());
+        commentsDto.setText(comment.getText());
+        commentsDto.setCreatedDate(comment.getCreatedDate().toString());
+        commentsDto.setUserName(comment.getUser().getUsername());
+        return commentsDto;
+    }
     public Comment mapToEpisode(CommentsDto commentsDto, Episode episode, User user) {
         Comment comment = new Comment();
         comment.setText(commentsDto.getText());

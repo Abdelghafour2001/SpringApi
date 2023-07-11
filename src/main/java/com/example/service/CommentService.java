@@ -86,4 +86,9 @@ public class CommentService {
                 .map(commentMapper::mapToDto2)
                 .toList();
     }
+    public List<CommentsDto> getComments() {
+        return commentRepository.findAll().stream()
+                .map(commentMapper::mapToDto3)
+                .toList();
+    }
 }

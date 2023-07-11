@@ -29,7 +29,11 @@ public class CommentsController {
         commentService.save(commentsDto);
         return new ResponseEntity<>(CREATED);
     }
-
+    @GetMapping("/getCommentsAll")
+    public List<CommentsDto> getAllComments() {
+        return ResponseEntity.status(OK)
+                .body(commentService.getComments()).getBody();
+    }
     @GetMapping(params = "postId")
     public ResponseEntity<List<CommentsDto>> getAllCommentsForPost(@RequestParam Long postId) {
         return ResponseEntity.status(OK)
