@@ -36,6 +36,10 @@ public class MoviesController {
     public ResponseEntity<List<MovieResponse>> getOurMovies() {
         return status(HttpStatus.OK).body(service.getOurMovies());
     }
+    @GetMapping("/getOurMovie")
+    public ResponseEntity<MovieResponse> getOurMovie(@RequestParam(name = "page", required = false) String pag) {
+        return status(HttpStatus.OK).body(service.getOurMovie(pag));
+    }
     @GetMapping("/getTvshows")
     public ResponseEntity<Object> getTvshows(@RequestParam(name = "page", required = false) String page) {
         return service.getTvshows(page,restTemplate);

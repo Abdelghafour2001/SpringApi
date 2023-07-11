@@ -27,12 +27,16 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @Transactional(readOnly = true)
+    public MovieResponse getOurMovie(String id) {
+        return movieMapper.mapToDto(movieRepository.findByTitle(id));
+    }
+    @Override
+    @Transactional(readOnly = true)
     public List<MovieResponse> getOurMovies() {
         return movieRepository.findAll() .stream()
                 .map(movieMapper::mapToDto)
                 .collect(toList());
     }
-
     @Override
     public ResponseEntity<Object> getMovies(String page, RestTemplate restTemplate) {
         try {

@@ -5,6 +5,7 @@ import com.example.model.Data;
 import com.example.model.Movie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -12,6 +13,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 public interface MovieService {
+
+    MovieResponse getOurMovie(String id);
+
     List<MovieResponse> getOurMovies();
     ResponseEntity<Object> getMovies( String page, RestTemplate restTemplate);
     ResponseEntity<Object> getTvshows(String page, RestTemplate restTemplate);
