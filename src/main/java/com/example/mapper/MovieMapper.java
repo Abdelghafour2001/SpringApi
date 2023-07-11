@@ -13,6 +13,7 @@ public class MovieMapper {
     public MovieResponse mapToDto(Movie movie) {
         MovieResponse movieResponse = new MovieResponse();
         // movieResponse.setType(post.getType());
+        
         movieResponse.setTitle(movie.getTitle());
         movieResponse.setUsername(movie.getUser().getUsername());
         movieResponse.setImage(movie.getImage());
