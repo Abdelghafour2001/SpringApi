@@ -22,6 +22,8 @@ public class UserDto {
     private String email;
     private String created;
     private boolean enabled;
+    private String role;
+
 
 
 }
