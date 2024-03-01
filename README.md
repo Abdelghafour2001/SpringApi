@@ -1,10 +1,9 @@
 # SpringApi
 JEE Project Spring Api  for the backend of a Streaming App i developed with my colleague
-##sk-7C9
+$$sk-MQiU9kK
 
-EOLVQRyL##
+hW79L7E7OGg4$$
 
+##$mT3BlbkFJMxUEkI
 
-
-##XOCEkAmFeT3BlbkF
-$$JdcmDy6IKwEyiXHTdvJQX
+WERswm8W9fyW6l#$#
